@@ -1,19 +1,27 @@
 Name, Rain?, Family/Level
+
+#----------------CIRRUS------------------------
 Cirrus castellanus, No, A
 Cirrus fibratus, No, A
 Cirrus spissatus, No, A
 Cirrus uncinus, No ,A
+
+#---------------CIRROCUMULUS-------------------
 Cirrocumulus stratiformis, No, A
 Cirrocumulus lenticularis, No, A
 Cirrocumulus castellanus, No, A
 Cirrocumulus floccus, No, A
 Cirrostratus fibratus, No, A
 Cirrostratus nebulosus, No, A
+
+#----------------ALTOSTRATUS-------------------
 Altostratus duplicatus, No, B
 Altostratus opacus, No, B
 Altostratus radiatus, No, B
 Altostratus translucidus, No, B
 Altostratus undulatus, No, B
+
+#-----------------ALTOCUMULUS------------------
 Altocumulus castellanus, No, B
 Altocumulus floccus, No, B
 Altocumulus lenticularis, No, B
@@ -25,11 +33,15 @@ Altocumulus perlucidus, No, B
 Altocumulus radiatus, No, B
 Altocumulus translucidus, No, B
 Altocumulus undulatus, No, B
+
+#------------------STRATUS--------------------
 Stratus fractus, Yes, C
 Stratus nebulosus, No, C
 Stratus opacus, No, C
 Stratus translucidus, No, C
 Stratus undulatus, No, C
+
+#--------------STRATOCUMULUS------------------
 Stratocumulus castellanus, No, C
 Stratocumulus floccus, No, C
 Stratocumulus lenticularis, No, C
@@ -41,12 +53,18 @@ Stratocumulus perlucidus, No, C
 Stratocumulus radiatus, No, C
 Stratocumulus translucidus, No, C
 Stratocumulus undulatus, No, C
+
+#---------------NIMBOSTRATUS-----------------
 Nimbostratus, Yes, B
+
+#-----------------CUMULUS--------------------
 Cumulus castellanus, Sometimes, Cumulus
 Cumulus congestus, Yes, Cumulus
 Cumulus fractus, No, Cumulus
 Cumulus humilis, No, Cumulus
 Cumulus mediocris, No, Cumulus
+
+#----------------CUMULONIMBUS----------------
 Cumulonimbus calvus, Yes, Cumulonimbus
 Cumulonimbus capillatus, Yes, Cumulonimbus
 Cumulonimbus praecipitatio, Yes, Cumulonimbus
