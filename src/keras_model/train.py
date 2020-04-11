@@ -66,12 +66,12 @@ def train_with_data_augmentation(model, train_x, train_y,
     return model
 
 
-def store_model_and_binarizer(model, lab, path_outputs, name):
+def store_model_and_binarizer(model, lb, path_outputs, name):
     """
     Params
     ------
     model : Keras model
-    lab : Label binarizer
+    lb : Label binarizer
     path_outputs : string
         Path to the outputs folder
     name : string
@@ -82,7 +82,7 @@ def store_model_and_binarizer(model, lab, path_outputs, name):
     model.save(path_outputs)
     
     # Store the binarizer
-    path_lab = os.path.join(path_outputs, name + ".pickle")
-    f = open(path_lab, "wb")
+    path_lb = os.path.join(path_outputs, name + ".pickle")
+    f = open(path_lb, "wb")
     f.write(pickle.dumps(lb))
     f.close()

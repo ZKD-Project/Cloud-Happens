@@ -3,9 +3,11 @@ These functions are used to load the images
 in numpy array format.
 """
 import cv2
+import numpy as np
 import random
 
 from imutils import paths
+from keras.preprocessing.image import img_to_array
 
 
 def list_image_paths(path_data, random_seed=None):
@@ -55,3 +57,26 @@ def load_data_and_labels(image_paths):
     labels = np.array(labels)
     
     return data, labels
+
+
+def load_single_image(path_image):
+    """
+    Loads an image and preprocesses it
+    
+    Params
+    ------
+    path_image : string
+        Path to the image
+    
+    Returns
+    -------
+    image : numpy array
+        Tensor ready to be labeled by the model
+    """
+    image = cv2.imread(path_image)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = cv2.resize(image, (96, 96))
+    image = image.astype("float") / 255.0
+    image = img_to_array(image)
+    image = np.expand_dims(image, axis=0)
+    return image
