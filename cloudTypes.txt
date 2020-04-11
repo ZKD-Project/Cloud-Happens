@@ -1,4 +1,4 @@
-Name, Rain?, Family/Level
+Name, Rain?, Family
 
 #----------------CIRRUS------------------------
 Cirrus castellanus, No, A
