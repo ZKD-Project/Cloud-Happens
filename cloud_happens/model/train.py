@@ -86,7 +86,7 @@ def store_model_and_binarizer(model, lb, path_outputs, name):
     """
     # Store the model
     path_model = os.path.join(path_outputs, name + ".model")
-    model.save(path_outputs)
+    model.save(path_model)
 
     # Store the binarizer
     path_lb = os.path.join(path_outputs, name + ".pickle")
