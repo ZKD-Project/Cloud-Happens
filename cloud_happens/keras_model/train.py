@@ -6,6 +6,7 @@ import os
 import pickle
 
 from sklearn.preprocessing import LabelBinarizer
+from sklearn.model_selection import train_test_split
 from keras.preprocessing.image import ImageDataGenerator
 
 
@@ -18,7 +19,7 @@ def preprocess_data(data, labels,
         Array containing all the images, in numpy format
         Size (N, height, width, depth), being N the number of images
     labels : numpy array of strings
-        Array containg the label assigned to each image
+        Array containing the label assigned to each image
         Size N, being N the number of images
     test_size : float, default 0.2
         Proportion of data that is set apart and only used
@@ -34,13 +35,14 @@ def preprocess_data(data, labels,
     # Split data into train and test
     (train_x, test_x,
      train_y, test_y) = train_test_split(data, labels,
-                                       test_size=test_size,
-                                       random_state=random_state)
+                                         test_size=test_size,
+                                         random_state=random_state)
     
     return train_x, test_x, train_y, test_y
 
 
 def train_with_data_augmentation(model, train_x, train_y,
+                                 test_x, test_y,
                                  epochs=100, batch_size=32):
     """
     Params
@@ -48,14 +50,18 @@ def train_with_data_augmentation(model, train_x, train_y,
     model : Keras model
     train_x : Numpy array
     train_y : Numpy array
+    test_x : Numpy array
+    test_y : Numpy array
     epochs : integer, default 100
         Number of epochs to train the model
     batch_size : integer, default 32
-        Number of images that are feeded at once
+        Number of images that are fed at once
     """
+
     # Construct the image generator for data augmentation
     aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.1,
-                             height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
+                             height_shift_range=0.1, shear_range=0.2,
+                             zoom_range=0.2,
                              horizontal_flip=True, fill_mode="nearest")
     
     # Train the network

@@ -4,6 +4,7 @@ in numpy array format.
 """
 import cv2
 import numpy as np
+import os
 import random
 
 from imutils import paths
@@ -22,10 +23,17 @@ def list_image_paths(path_data, random_seed=None):
     return image_paths
 
 
-def load_data_and_labels(image_paths):
+def load_data_and_labels(image_paths, image_dims=None):
     """
     Take given list of image paths and load each image (as a numpy array)
     and it's corresponding label (as a string)
+
+    Params
+    ------
+    image_paths : list
+        List of the image paths (strings).
+    image_dims : tuple, default=None
+        If given, resize images to image_dims (width x height).
     
     Returns
     -------
@@ -33,22 +41,30 @@ def load_data_and_labels(image_paths):
         Array containing all the images, in numpy format
         Size (N, height, width, depth), being N the number of images
     labels : numpy array of strings
-        Array containg the label assigned to each image
+        Array containing the label assigned to each image
         Size N, being N the number of images
     """
     # Initialize arrays
     data = []
     labels = []
 
+    if (image_dims is not None) and (len(image_dims) != 2):
+        raise ValueError("image_dims parameter must be a tuple of two "
+                         f"elements.\nimage_dims = {image_dims}")
+
     for image_path in image_paths:
+        if not os.path.isfile(image_path):
+            raise ValueError(f"Path is not a file:\n{image_path}")
         # load the image, pre-process it, and store it in the data list
         image = cv2.imread(image_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        image = cv2.resize(image, (IMAGE_DIMS[1], IMAGE_DIMS[0]))
+        if image_dims is not None:
+            image = cv2.resize(image, (image_dims[1], image_dims[0]))
         image = img_to_array(image)
         data.append(image)
 
-        # extract the class label from the image path and update the labels list
+        # extract the class label from the image path and
+        # update the labels list
         label = image_path.split(os.path.sep)[-2]
         labels.append(label)
     
@@ -59,24 +75,37 @@ def load_data_and_labels(image_paths):
     return data, labels
 
 
-def load_single_image(path_image):
+def load_single_image(path_image, image_dims=None):
     """
-    Loads an image and preprocesses it
+    Load an image and preprocess it
     
     Params
     ------
     path_image : string
         Path to the image
+    image_dims : tuple, default=None
+        If given, resize images to image_dims (width x height).
     
     Returns
     -------
     image : numpy array
         Tensor ready to be labeled by the model
     """
+
+    if not os.path.isfile(path_image):
+        raise ValueError(f"Path is not a file:\n{path_image}")
+
     image = cv2.imread(path_image)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    image = cv2.resize(image, (96, 96))
+
+    if image_dims is not None:
+        if len(image_dims) != 2:
+            raise ValueError("image_dims parameter must be a tuple of two "
+                             f"elements.\nimage_dims = {image_dims}")
+        image = cv2.resize(image, (image_dims[1], image_dims[0]))
+
     image = image.astype("float") / 255.0
     image = img_to_array(image)
     image = np.expand_dims(image, axis=0)
+
     return image
