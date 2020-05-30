@@ -109,7 +109,7 @@ def initialize_model(lb,
     Returns
     -------
     model : Keras model
-        CNN ready to be feeded and trained
+        CNN ready to be fed and trained
     """
     model = build_model(width=image_dims[1], 
                         height=image_dims[0], 

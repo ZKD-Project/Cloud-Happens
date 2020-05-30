@@ -27,17 +27,17 @@ def preprocess_data(data, labels,
     random_state : integer, default 42
         Random seed, to ease the reproducibility
     """
-    
+
     # Binarize the labels
     lb = LabelBinarizer()
     labels = lb.fit_transform(labels)
-    
+
     # Split data into train and test
     (train_x, test_x,
      train_y, test_y) = train_test_split(data, labels,
                                          test_size=test_size,
                                          random_state=random_state)
-    
+
     return train_x, test_x, train_y, test_y
 
 
@@ -63,9 +63,10 @@ def train_with_data_augmentation(model, train_x, train_y,
                              height_shift_range=0.1, shear_range=0.2,
                              zoom_range=0.2,
                              horizontal_flip=True, fill_mode="nearest")
-    
+
     # Train the network
-    H = model.fit_generator(aug.flow(train_x, train_y, batch_size=batch_size),
+    H = model.fit_generator(aug.flow(train_x, train_y,
+                                     batch_size=batch_size),
                             validation_data=(test_x, test_y),
                             steps_per_epoch=len(train_x) // batch_size,
                             epochs=epochs, verbose=1)
@@ -86,7 +87,7 @@ def store_model_and_binarizer(model, lb, path_outputs, name):
     # Store the model
     path_model = os.path.join(path_outputs, name + ".model")
     model.save(path_outputs)
-    
+
     # Store the binarizer
     path_lb = os.path.join(path_outputs, name + ".pickle")
     f = open(path_lb, "wb")
