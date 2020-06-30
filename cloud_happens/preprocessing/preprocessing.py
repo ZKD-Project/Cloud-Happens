@@ -23,7 +23,7 @@ def list_image_paths(path_data, random_seed=None):
     return image_paths
 
 
-def load_data_and_labels(image_paths, image_dims=None):
+def load_data_and_labels(image_paths, image_dims=None, verbose=True):
     """
     Take given list of image paths and load each image (as a numpy array)
     and it's corresponding label (as a string)
@@ -34,6 +34,8 @@ def load_data_and_labels(image_paths, image_dims=None):
         List of the image paths (strings).
     image_dims : tuple, default=None
         If given, resize images to image_dims (width x height).
+    verbose : bool, default=True
+        Print process info
     
     Returns
     -------
@@ -52,7 +54,11 @@ def load_data_and_labels(image_paths, image_dims=None):
         raise ValueError("image_dims parameter must be a tuple of two "
                          f"elements.\nimage_dims = {image_dims}")
 
-    for image_path in image_paths:
+    if verbose:
+        num_images = len(image_paths)
+        print(f"Loading {num_images} images")
+
+    for idx, image_path in enumerate(image_paths):
         if not os.path.isfile(image_path):
             raise ValueError(f"Path is not a file:\n{image_path}")
         # load the image, pre-process it, and store it in the data list
@@ -67,6 +73,9 @@ def load_data_and_labels(image_paths, image_dims=None):
         # update the labels list
         label = image_path.split(os.path.sep)[-2]
         labels.append(label)
+
+        if verbose:
+            print(f" Image {idx} out of {num_images}")
     
     # Scale the raw pixel intensities to the range [0, 1]
     data = np.array(data, dtype="float") / 255.0

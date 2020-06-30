@@ -47,7 +47,7 @@ def build_model(width, height, depth, classes):
     model.add(Conv2D(32, (3, 3), padding="same", input_shape=inputShape))
     model.add(Activation("relu"))
     model.add(BatchNormalization(axis=chanDim))
-    model.add(MaxPooling2D(pool_size=(3, 3))) # máximo de los 9
+    model.add(MaxPooling2D(pool_size=(3, 3)))  # máximo de los 9
     model.add(Dropout(0.25))
 
     # (CONV => RELU) * 2 => POOL

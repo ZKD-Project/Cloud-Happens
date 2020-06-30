@@ -2,3 +2,5 @@ data/*
 bing_scraper.py
 /venv/
 /.idea/
+/outputs/
+/__pycache__/
