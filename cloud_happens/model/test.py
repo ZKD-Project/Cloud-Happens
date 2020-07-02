@@ -2,6 +2,8 @@ import numpy as np
 import os
 import pickle
 
+from tensorflow import keras
+
 
 def load_model_and_binarizer(path_outputs, name):
     """
@@ -14,7 +16,7 @@ def load_model_and_binarizer(path_outputs, name):
     """
     # Load model
     path_model = os.path.join(path_outputs, name + ".model")
-    model = load_model(path_model)
+    model = keras.models.load_model(path_model)
     
     # Load label binarizer
     path_lb = os.path.join(path_outputs, name + ".pickle")

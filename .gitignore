@@ -3,6 +3,7 @@ bing_scraper.py
 /venv/
 /.idea/
 */outputs/
+*/data/
 */__pycache__/
 
 cloud_happens/preprocessing/__pycache__/
