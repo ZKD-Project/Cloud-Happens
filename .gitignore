@@ -2,5 +2,9 @@ data/*
 bing_scraper.py
 /venv/
 /.idea/
-/outputs/
-/__pycache__/
+*/outputs/
+*/__pycache__/
+
+cloud_happens/preprocessing/__pycache__/
+
+cloud_happens/model/__pycache__/
